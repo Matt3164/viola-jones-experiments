@@ -1,0 +1,9 @@
+WORKSPACE = "/home/matthieu/Workspace/data/cats"
+POSITIVE_PATH = "/home/matthieu/Workspace/data/cats/detector/positives"
+SCALES = [64, 128]
+MAX_POSITIVE_EXAMPLES = 1000
+NEGATIVE_PATH = "/home/matthieu/Workspace/data/cats/detector/negatives"
+MAX_NEGATIVE_EXAMPLES = 50000
+RUN_PATH = "/home/matthieu/Workspace/data/cats/detector/runs"
+RUN_ID = 7
+PREVIOUS_RUN_ID = 6
