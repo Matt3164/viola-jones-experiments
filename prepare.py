@@ -7,6 +7,8 @@ from typing import Tuple
 
 from pandas import DataFrame
 
+from config import WORKSPACE
+
 
 def _bbox_from_filepath(image_file: str) -> Tuple[int, int, int, int]:
     with open(image_file + ".cat", "r") as f:
@@ -30,9 +32,9 @@ def _flatten(s: Tuple[str, Tuple[int, int, int, int]]) -> Tuple[str, int, int, i
 
 if __name__ == '__main__':
 
-    data_path = "/home/matthieu/Workspace/data/cats"
+    data_path = WORKSPACE
 
-    workspace = "/home/matthieu/Workspace/data/cats"
+    workspace = WORKSPACE
 
     image_files = chain.from_iterable(
         map(lambda folder: glob(join(data_path, folder, "*.jpg")), listdir(data_path))
