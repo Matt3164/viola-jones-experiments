@@ -9,3 +9,17 @@
     3. Use model to select harder patches 
 5. Testing
     1. Generate image visualistion with detected cat and other detection
+    
+    
+# TODO
+
+- [ ] Todo
+- [ ] CLI
+- [ ] Download original data script
+- [ ] Iterator from DataFrame
+- [ ] Preprocessing function : resize , cvtColor, remove mean and variance
+- [ ] Path utils class to manage path to store images
+- [ ] Asbtraction on used classifier and features
+- [ ] SURF and LBP feature integration
+- [ ] Use more than one features at a time for classifier
+

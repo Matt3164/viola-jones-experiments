@@ -4,8 +4,8 @@ from matplotlib.pyplot import subplot, imshow, show
 from pandas import read_csv
 
 from config import WORKSPACE
-from utils.rectangle import _bbox_to_mask
-from utils.viz import _overlay_bbox_on_img
+from utils.rectangle import rect_to_mask
+from utils.viz import overlay_bbox_on_img
 
 if __name__ == '__main__':
     workspace = WORKSPACE
@@ -23,7 +23,7 @@ if __name__ == '__main__':
 
     for im, bbox in zip(array_flow, bbox_flow):
 
-        mask = _overlay_bbox_on_img((im.copy(), bbox))
+        mask = overlay_bbox_on_img((im.copy(), bbox))
 
         subplot(1, 2, 1)
         imshow(im)

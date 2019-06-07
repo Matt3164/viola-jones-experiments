@@ -6,7 +6,7 @@ from numpy import concatenate, expand_dims
 from pandas import read_csv, DataFrame
 
 from config import WORKSPACE, SCALES, NEGATIVE_PATH, MAX_NEGATIVE_EXAMPLES, RUN_ID
-from utils.rectangle import _bbox_to_mask
+from utils.rectangle import rect_to_mask
 from utils.scanner import scan_image
 
 if __name__ == '__main__':
@@ -35,8 +35,8 @@ if __name__ == '__main__':
         image_arr = cv2.cvtColor(
             cv2.imread(image_path, cv2.IMREAD_COLOR), cv2.COLOR_RGB2BGR)
 
-        bbox_mask = _bbox_to_mask(bbox=(elmt.Xmin, elmt.Xmax, elmt.Ymin, elmt.Ymax), shape=image_arr.shape[:2],
-                                  burn_values=1)
+        bbox_mask = rect_to_mask(rect=(elmt.Xmin, elmt.Xmax, elmt.Ymin, elmt.Ymax), shape=image_arr.shape[:2],
+                                 burn_values=1)
 
         composite_image = concatenate([image_arr, expand_dims(bbox_mask, axis=-1)], axis=-1)
 
