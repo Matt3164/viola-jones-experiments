@@ -3,7 +3,7 @@ import shutil
 from glob import glob
 from os.path import join, exists
 
-from config import NEGATIVE_PATH, RUN_ID, PREVIOUS_RUN_ID
+from common.config import NEGATIVE_PATH, RUN_ID, PREVIOUS_RUN_ID
 
 if __name__ == '__main__':
 

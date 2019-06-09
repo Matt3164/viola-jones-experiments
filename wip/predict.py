@@ -5,13 +5,11 @@ import joblib
 from matplotlib.pyplot import subplot, imshow, show
 from pandas import read_csv, DataFrame
 
-from config import WORKSPACE, PREVIOUS_RUN_ID, RUN_PATH
-from utils.rectangle import rect_to_mask
-from utils.scanner import scan_image
-from utils.viz import overlay_bbox_on_img
+from common.config import WORKSPACE, PREVIOUS_RUN_ID, RUN_PATH
+from common.scanner import scan_image
+from common.viz import overlay_bbox_on_img
 import numpy as np
 
-from train import *
 
 def bbs(image_arr):
     for scale in [64, 128, 256, 512]:
@@ -24,10 +22,10 @@ def bbs(image_arr):
 
 def preprocess(image):
     image = cv2.resize(image, (28, 28))
-
     return cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
 
 if __name__ == '__main__':
+
     dataframe_path = join(WORKSPACE, "images.csv")
 
     df = read_csv(dataframe_path, index_col=0)
@@ -73,7 +71,6 @@ if __name__ == '__main__':
         arr = arr[pred==1, ::]
 
         bounndingboxes = list(filter(lambda e: e[1]==1, zip(bounndingboxes, pred)))
-
 
     print(bounndingboxes)
 

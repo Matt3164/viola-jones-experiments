@@ -7,3 +7,6 @@ MAX_NEGATIVE_EXAMPLES = 50000
 RUN_PATH = "/home/matthieu/Workspace/data/cats/detector/runs"
 RUN_ID = 7
 PREVIOUS_RUN_ID = 6
+
+IM_SIZE=24
+IOU_THRESHOLD = 0.5
