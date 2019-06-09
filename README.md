@@ -13,13 +13,12 @@
     
 # TODO
 
-- [ ] Todo
+- [ ] Cascade utils: predict and filter (use sklearn Pipeline?)
 - [ ] CLI
 - [ ] Download original data script
-- [ ] Iterator from DataFrame
-- [ ] Preprocessing function : resize , cvtColor, remove mean and variance
 - [ ] Path utils class to manage path to store images
 - [ ] Asbtraction on used classifier and features
 - [ ] SURF and LBP feature integration
 - [ ] Use more than one features at a time for classifier
+- [ ] Work on getting negative examples
 
