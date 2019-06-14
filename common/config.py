@@ -5,8 +5,8 @@ MAX_POSITIVE_EXAMPLES = 1000
 NEGATIVE_PATH = "/home/matthieu/Workspace/data/cats/detector/negatives"
 MAX_NEGATIVE_EXAMPLES = 50000
 RUN_PATH = "/home/matthieu/Workspace/data/cats/detector/runs"
-RUN_ID = 7
-PREVIOUS_RUN_ID = 6
-
+RUN_ID = 2
 IM_SIZE=24
 IOU_THRESHOLD = 0.5
+BATCH_SIZE = 1024
+N_FEATURES_MAX=250

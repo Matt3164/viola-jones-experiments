@@ -1,18 +1,23 @@
-from typing import Iterator, Callable, Tuple
+from typing import Iterator, Tuple
 
+import attr
 from numpy import concatenate, expand_dims
-from numpy.core._multiarray_umath import ndarray
-
 from numpy.core.multiarray import ndarray
 
 from common.config import SCALES
-from common.imatools import read_ima
-from common.scanner import scan_image_multiple_scales
-from train.dataset import load
+from common.imatools import read
+from common.scanner import scan_pyramid_image
+from train.datasets.object import load
 from train.rectangle import rect_to_mask
 
+@attr.s
+class ChipDetails(object):
+    """"""
 
-def scan_iou(iou_fn: Callable[[float], bool])->Iterator[Tuple[int, int,int , ndarray]]:
+    metadata = attr.ib(type=dict, kw_only=True)
+    iou = attr.ib(type=float, kw_only=True)
+
+def scan_iou()->Iterator[Tuple[ndarray, ChipDetails]]:
 
     """
 
@@ -28,7 +33,7 @@ def scan_iou(iou_fn: Callable[[float], bool])->Iterator[Tuple[int, int,int , nda
 
     dataset_iter = load()
 
-    dataset_iter = map(lambda elmt: (read_ima(elmt[0]), elmt[1]), dataset_iter)
+    dataset_iter = map(lambda elmt: (read(elmt[0]), elmt[1]), dataset_iter)
 
     dataset_iter = map(lambda elmt: (elmt[0], rect_to_mask(rect=elmt[1], shape=elmt[0].shape[:2],
                                                            burn_values=1)), dataset_iter)
@@ -39,7 +44,7 @@ def scan_iou(iou_fn: Callable[[float], bool])->Iterator[Tuple[int, int,int , nda
 
         bbox_area = composite_image[:, :, -1].sum()
 
-        for bb_idx, (bb, extim) in enumerate(scan_image_multiple_scales(
+        for bb_idx, (bb, extim) in enumerate(scan_pyramid_image(
                 composite_image,
                 sizes=SCALES,
                 steps=list(map(lambda sc: int(0.25 * sc), SCALES)))):
@@ -52,8 +57,10 @@ def scan_iou(iou_fn: Callable[[float], bool])->Iterator[Tuple[int, int,int , nda
 
             iou = intersection / (bbox_area + ext_bb_area - intersection)
 
-            if iou_fn(iou):
-                yield scale, idx, bb_idx, extim[:,:,:3]
+            yield extim[:,:,:3],ChipDetails(
+                iou=iou,
+                metadata=dict(img_idx=idx, bb_idx=bb_idx, scale=scale)
+            )
 
 
 def to_composite(img: ndarray, mask: ndarray)->ndarray:

@@ -7,14 +7,19 @@ from train.extract import scan_iou
 
 if __name__ == '__main__':
 
-    for idx, (scale, img_idx, bb_idx, ext_arr) in enumerate(scan_iou(lambda x: x>=IOU_THRESHOLD)):
+    data_iter = filter(lambda x: x.iou >= IOU_THRESHOLD, scan_iou())
 
-        pos_fn = join(POSITIVE_PATH, "ext_{0}_scale_{1}_{1:5d}.png".format(img_idx, scale, bb_idx))
+    for idx, (data, details) in enumerate(data_iter):
+
+        pos_fn = join(POSITIVE_PATH, "ext_{0}_scale_{1}_{1:5d}.png".format(
+            details.metadata["img_idx"],
+            details.metadata["scale"],
+            details.metadata["bb_idx"]))
 
         if not exists(pos_fn):
             cv2.imwrite(
                 pos_fn,
-                cv2.cvtColor(ext_arr, cv2.COLOR_RGB2BGR)
+                cv2.cvtColor(data, cv2.COLOR_RGB2BGR)
             )
 
         if idx > MAX_POSITIVE_EXAMPLES:

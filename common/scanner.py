@@ -12,5 +12,10 @@ def scan_image(
         for j in arange(0, img_arr.shape[1] - size, step):
             yield (i, j, size, size), img_arr[i:i + size, j:j + size, :]
 
-def scan_image_multiple_scales(img: ndarray, sizes: List[int], steps: List[int])->Iterator[Tuple[Tuple[int, int, int, int], ndarray]]:
+def scan_pyramid_image(img: ndarray,
+                       sizes: List[int],
+                       steps: List[int]
+                       )->Iterator[Tuple[Tuple[int, int, int, int], ndarray]]:
+    assert len(sizes)==len(steps), "Not the same number of scales and steps"
+
     return chain.from_iterable(map( lambda ss: scan_image(img, ss[1], ss[0]), zip(sizes, steps) ))
