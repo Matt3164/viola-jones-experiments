@@ -2,7 +2,7 @@ from itertools import chain
 from typing import Tuple, List, Iterator
 from numpy.core.multiarray import ndarray, arange
 
-
+# TODO use skimage sliding window implementation
 def scan_image(
         img_arr: ndarray,
         step: int,

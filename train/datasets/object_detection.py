@@ -23,4 +23,4 @@ def from_path(fn: str, shuffle: bool=False, sample: bool=False, n_samples: int=1
 
 
 def load(shuffle: bool=False, sample: bool=False, n_samples: int=100)->Iterator[Tuple[str, Tuple[int,int,int,int]]]:
-    return from_path(image_df())
+    return from_path(image_df(), shuffle=False, sample=sample, n_samples=n_samples)

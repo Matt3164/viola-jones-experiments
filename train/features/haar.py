@@ -8,7 +8,7 @@ import numpy as np
 from skimage.feature import haar_like_feature_coord, haar_like_feature
 from sklearn.base import BaseEstimator, TransformerMixin
 
-from common.config import IM_SIZE
+from common.config import NOMINAL_SIZE
 
 HAAR_FEATURE_TYPE = ['type-2-x', 'type-2-y', 'type-3-x', 'type-3-y','type-4']
 
@@ -24,7 +24,7 @@ class HaarFeatureDescriptor:
 
 
 def _haar_coords(feature_type: str):
-    coords, types = haar_like_feature_coord(IM_SIZE, IM_SIZE, feature_type)
+    coords, types = haar_like_feature_coord(NOMINAL_SIZE, NOMINAL_SIZE, feature_type)
     return zip(coords, types)
 
 

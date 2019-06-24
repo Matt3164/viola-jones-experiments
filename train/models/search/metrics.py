@@ -1,4 +1,4 @@
-from sklearn.metrics import make_scorer, recall_score, accuracy_score, fbeta_score
+from sklearn.metrics import make_scorer, recall_score, accuracy_score, fbeta_score, f1_score
 
 
 def mix(ytrue, ypred):
@@ -12,8 +12,8 @@ def fbeta(ytrue, ypred):
 metrics = {
     "recall": make_scorer(recall_score),
     "acc": make_scorer(accuracy_score),
+    "f1": make_scorer(f1_score),
     "fbeta": make_scorer(fbeta),
     "mix": make_scorer(mix)
 }
 
-optimized = "fbeta"

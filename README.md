@@ -34,6 +34,8 @@ between the paper and a new working implementation on another use cas
 - [ ] Add n_scales parameters and steps for each one
 - [ ] create config management ( dotenv and ini file)
 - [ ] add debug tools
+- [ ] override random search to learn classifier on the same fold 
+and compare simply perf instead of averaged perf
 
 
 Logging + Log visu + Log perf --> check mlflow?

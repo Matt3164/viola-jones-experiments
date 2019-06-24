@@ -1,9 +1,10 @@
 from sklearn.metrics import confusion_matrix, accuracy_score
-from sklearn.model_selection import train_test_split, RandomizedSearchCV
-from common.config import RUN_ID
-from train.classifier import load_to_train, to_path
-from train.datasets.array import from_path
-from train.search_metrics import metrics, optimized
+from sklearn.model_selection import train_test_split
+from common.config import RUN_ID, RANDOM_SEARCH
+from train.classifier import load_to_train
+from train.models.search.search import from_model_and_params
+from train.models.utils import to_path
+from common.iotools.dataset import from_path
 from train.path_utils import dataset, classifier
 
 if __name__ == '__main__':
@@ -18,19 +19,12 @@ if __name__ == '__main__':
 
     neg = ytrain.shape[0] - pos
 
-    pipe, param_dist = load_to_train(neg, pos)
+    clf, param_dist = load_to_train(neg, pos)
 
-    # run randomized search
-    n_iter_search = 25
+    if RANDOM_SEARCH:
+        clf = from_model_and_params(clf, param_dist)
 
-    clf = RandomizedSearchCV(pipe, param_distributions=param_dist,
-                             n_iter=n_iter_search, cv=2, iid=False, verbose=2, scoring=metrics,
-                             refit=optimized,
-                             n_jobs=4
-                             )
-
-    clf.fit(xtrain, ytrain)
-
+    clf.fit(xtrain, ytrain.ravel())
 
     for tag, x, y in [
         ("train", xtrain, ytrain), ("test", xtest, ytest)]:

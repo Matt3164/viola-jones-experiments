@@ -1,19 +1,18 @@
-from itertools import chain
+from itertools import chain, islice
 from os import makedirs
-from os.path import exists, join
 from typing import List, Tuple, Iterator
 from numpy.core.multiarray import ndarray
 from sklearn.base import BaseEstimator
 from common.config import MAX_NEGATIVE_EXAMPLES, IOU_THRESHOLD, BATCH_SIZE
 from common.filter import by_cascade
-from common.imatools import write
-from common.iter import batch
-from train.classifier import from_path as clf_from_path
+from common.func.batch import batch
+from train.models.utils import from_path as clf_from_path
 from train.extract import scan_iou, ChipDetails
-from train.path_utils import negatives, classifier
+from train.path_utils import negatives
 from cli.train_cli import *
-from train.preprocessing import from_array
+from train.preprocessing.window import from_array
 import numpy as np
+from common.iotools.images import to_path as imgs_to_path
 
 
 def _filter_w_metadata(data: List[Tuple[ndarray, ChipDetails]],
@@ -46,15 +45,10 @@ if __name__ == '__main__':
 
     filt_data = map(lambda elmt: _filter_w_metadata(elmt, classifiers=classifiers), batches)
 
-    for idx, (data, details) in enumerate(chain.from_iterable(filt_data)):
+    imgs_to_dump = map(lambda x: x[1].metadata["origin_array"], chain.from_iterable(filt_data))
 
-        pos_fn = join(negative_storage_path, "ext_{0}_scale_{1}_{2:05d}.png".format(
-            details.metadata["img_idx"],
-            details.metadata["scale"],
-            details.metadata["bb_idx"]))
+    imgs_to_path(
+        negative_storage_path,
+        islice(imgs_to_dump, 0, MAX_NEGATIVE_EXAMPLES)
+    )
 
-        if not exists(pos_fn):
-            write(pos_fn, details.metadata["origin_array"])
-
-        if idx > MAX_NEGATIVE_EXAMPLES:
-            break

@@ -7,11 +7,11 @@ from train.extract import scan_iou
 
 if __name__ == '__main__':
 
-    data_iter = filter(lambda x: x.iou >= IOU_THRESHOLD, scan_iou())
+    data_iter = filter(lambda x: x[1].iou >= IOU_THRESHOLD, scan_iou())
 
     for idx, (data, details) in enumerate(data_iter):
 
-        pos_fn = join(POSITIVE_PATH, "ext_{0}_scale_{1}_{1:5d}.png".format(
+        pos_fn = join(POSITIVE_PATH, "ext_{0}_scale_{1}_{2:05d}.png".format(
             details.metadata["img_idx"],
             details.metadata["scale"],
             details.metadata["bb_idx"]))

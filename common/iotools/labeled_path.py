@@ -1,7 +1,7 @@
 from itertools import chain, repeat
-from typing import Tuple, Iterator, List
+from typing import List, Iterator, Tuple
 
-from common.imatools import glob_png
+from common.iotools.path import find_pngs
 
 
 def from_folders(folders: List[str])->Iterator[Tuple[str, int]]:
@@ -13,6 +13,5 @@ def from_folders(folders: List[str])->Iterator[Tuple[str, int]]:
 
     """
     return chain.from_iterable(
-        map( lambda elmt: zip(elmt[1], repeat(elmt[0])) , enumerate(map(glob_png, folders)) )
+        map(lambda elmt: zip(elmt[1], repeat(elmt[0])), enumerate(map(find_pngs, folders)))
     )
-

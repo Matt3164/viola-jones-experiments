@@ -1,10 +1,7 @@
 from os import makedirs
 from os.path import join, exists
-
-import cv2
-
 from common.config import MAX_NEGATIVE_EXAMPLES, RUN_ID, IOU_THRESHOLD
-from common.imatools import write
+from common.iotools.image import to_path
 from train.extract import scan_iou
 from train.path_utils import negatives
 
@@ -24,7 +21,7 @@ if __name__ == '__main__':
             details.metadata["bb_idx"]))
 
         if not exists(pos_fn):
-            write(pos_fn, arr)
+            to_path(pos_fn, arr)
 
         if idx > MAX_NEGATIVE_EXAMPLES:
             break

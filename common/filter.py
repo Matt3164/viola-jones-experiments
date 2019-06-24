@@ -30,10 +30,11 @@ def by_cascade(X: ndarray, Xmetadata: List, classifiers: List[BaseEstimator])->T
 
     for clf in classifiers:
 
-        kept_array, kept_metadata, _filtered_array, _filtered_metadata = by_clf(kept_array, kept_metadata, clf)
+        if kept_array.shape[0]>0:
 
-        filtered_array.append(_filtered_array)
-        filtered_metadata.extend(_filtered_metadata)
+            kept_array, kept_metadata, _filtered_array, _filtered_metadata = by_clf(kept_array, kept_metadata, clf)
+            filtered_array.append(_filtered_array)
+            filtered_metadata.extend(_filtered_metadata)
 
     return kept_array, kept_metadata, vstack(filtered_array), filtered_metadata
 

@@ -1,6 +1,6 @@
 from matplotlib.pyplot import subplot, imshow, show
 
-from common.imatools import read
+from common.iotools.image import from_path
 from common.viz import overlay_bbox_on_img
 from train.datasets.object import from_path
 from train.path_utils import image_df
@@ -10,7 +10,7 @@ if __name__ == '__main__':
 
     display_iter = map(
         lambda x: (x[0], overlay_bbox_on_img((x[0].copy(), x[1]))),
-        map(lambda x: (read(x[0]), x[1]), dataset_iter)
+        map(lambda x: (from_path(x[0]), x[1]), dataset_iter)
     )
 
     for img, mask in display_iter:
