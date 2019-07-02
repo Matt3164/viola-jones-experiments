@@ -6,7 +6,7 @@ from numpy.core.multiarray import ndarray
 
 from common.config import SCALES
 from common.iotools.image import from_path
-from common.scanner import scan_pyramid_image
+from common.imgproc.scan import from_image_pyramid
 from train.datasets.object_detection import load
 from train.preprocessing.raw import from_composite
 from train.rectangle import rect_to_mask
@@ -49,7 +49,7 @@ def scan_iou()->Iterator[Tuple[ndarray, ChipDetails]]:
 
         bbox_area = composite_image[:, :, -1].sum()
 
-        for bb_idx, (bb, extim) in enumerate(scan_pyramid_image(
+        for bb_idx, (bb, extim) in enumerate(from_image_pyramid(
                 composite_image,
                 sizes=SCALES,
                 steps=list(map(lambda sc: int(0.125 * sc), SCALES)))):

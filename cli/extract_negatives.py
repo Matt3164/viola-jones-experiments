@@ -4,8 +4,9 @@ from typing import List, Tuple, Iterator
 from numpy.core.multiarray import ndarray
 from sklearn.base import BaseEstimator
 from common.config import MAX_NEGATIVE_EXAMPLES, IOU_THRESHOLD, BATCH_SIZE
-from common.filter import by_cascade
+from common.filter import by_clf
 from common.func.batch import batch
+from inference.model import cascade
 from train.models.utils import from_path as clf_from_path
 from train.extract import scan_iou, ChipDetails
 from train.path_utils import negatives
@@ -20,7 +21,7 @@ def _filter_w_metadata(data: List[Tuple[ndarray, ChipDetails]],
                        )->Iterator[Tuple[ndarray, ChipDetails]]:
 
     X = np.array(list(map(lambda x: x[0], data)))
-    keptX, keptMeta, _, _ = by_cascade(X, list(map(lambda x: x[1], data)), classifiers)
+    keptX, keptMeta, _, _ = by_clf(X, list(map(lambda x: x[1], data)), cascade.from_clfs(classifiers))
     return zip(keptX, keptMeta)
 
 def _add_image_to_metadata(elmt: Tuple[ndarray, ChipDetails])->Tuple[ndarray, ChipDetails]:

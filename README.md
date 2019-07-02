@@ -25,17 +25,13 @@ between the paper and a new working implementation on another use cas
     
 # TODO
 
-- [ ] Cascade utils: predict and filter (use sklearn Pipeline?)
 - [ ] CLI
 - [ ] Download original data script
 - [ ] SURF and LBP feature integration
 - [ ] Use other classifier during clf search
 - [ ] Python packaging
-- [ ] Add n_scales parameters and steps for each one
 - [ ] create config management ( dotenv and ini file)
-- [ ] add debug tools
-- [ ] override random search to learn classifier on the same fold 
-and compare simply perf instead of averaged perf
+- [ ] add debug tools 
 
 
 Logging + Log visu + Log perf --> check mlflow?

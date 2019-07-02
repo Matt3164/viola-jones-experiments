@@ -67,7 +67,11 @@ class LambdaRow(TransformerMixin):
         return self
 
     def transform(self, X):
-        return np.array([self.func(x) for x in X])
+        _arr = np.array([self.func(x) for x in X])
+        if len(_arr.shape)>=2:
+            return _arr
+        else:
+            return _arr.reshape(-1,1)
 
     def fit_transform(self, X, y=None, **fit_params):
         return self.fit(X).transform(X)
