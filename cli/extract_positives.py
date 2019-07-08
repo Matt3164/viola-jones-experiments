@@ -1,26 +1,16 @@
-from os.path import join, exists
-
-import cv2
-
+from itertools import islice
 from common.config import POSITIVE_PATH, MAX_POSITIVE_EXAMPLES, IOU_THRESHOLD
-from train.extract import scan_iou
+from common.iotools import images
+from train.extract import _cat_scan_iou
+
+
+def _extract_positives():
+    data_iter = filter(lambda x: x[1].iou >= IOU_THRESHOLD, _cat_scan_iou())
+    images.to_path(
+        POSITIVE_PATH,
+        islice(map(lambda x: x[0], data_iter), 0, MAX_POSITIVE_EXAMPLES)
+    )
+
 
 if __name__ == '__main__':
-
-    data_iter = filter(lambda x: x[1].iou >= IOU_THRESHOLD, scan_iou())
-
-    for idx, (data, details) in enumerate(data_iter):
-
-        pos_fn = join(POSITIVE_PATH, "ext_{0}_scale_{1}_{2:05d}.png".format(
-            details.metadata["img_idx"],
-            details.metadata["scale"],
-            details.metadata["bb_idx"]))
-
-        if not exists(pos_fn):
-            cv2.imwrite(
-                pos_fn,
-                cv2.cvtColor(data, cv2.COLOR_RGB2BGR)
-            )
-
-        if idx > MAX_POSITIVE_EXAMPLES:
-            break
+    _extract_positives()

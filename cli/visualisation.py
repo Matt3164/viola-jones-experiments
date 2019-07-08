@@ -2,7 +2,7 @@ from matplotlib.pyplot import subplot, imshow, show
 
 from common.iotools.image import from_path
 from common.viz import overlay_bbox_on_img
-from train.datasets.object import from_path
+from train.datasets.object_detection import from_path
 from train.path_utils import image_df
 
 if __name__ == '__main__':

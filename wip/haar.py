@@ -2,8 +2,12 @@ import cv2
 from cv2 import resize
 from numpy import concatenate
 from skimage.data import chelsea
-# from skimage.transform import resize
 
+"""
+
+Try every haar feature and keep the bests.
+
+"""
 if __name__ == '__main__':
     im = chelsea()
 

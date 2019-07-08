@@ -7,13 +7,13 @@ from typing import Tuple
 import numpy as np
 from pandas import DataFrame
 
-from common.config import WORKSPACE
+from common.config import DATA_PATH
 from train.path_utils import image_df
 
 
-def prepare()->None:
+def _prepare()->None:
 
-    data_path = WORKSPACE
+    data_path = DATA_PATH
 
     image_files = chain.from_iterable(
         map(lambda folder: glob(join(data_path, folder, "*.jpg")), listdir(data_path))
@@ -55,9 +55,12 @@ def get()->None:
     """
     Should download dataset files
 
+    https://www.kaggle.com/crawford/cat-dataset
+    https://archive.org/details/CAT_DATASET
+    https://archive.org/download/CAT_DATASET/CAT_DATASET_01.zip
+    https://archive.org/download/CAT_DATASET/CAT_DATASET_02.zip
+
     Returns:
 
     """
-
-    # wget $URL
     return None

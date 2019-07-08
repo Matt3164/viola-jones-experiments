@@ -1,4 +1,4 @@
-from train.preparation import prepare
+from train.preparation import _prepare
 
 if __name__ == '__main__':
-    prepare()
+    _prepare()

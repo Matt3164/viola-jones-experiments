@@ -17,13 +17,17 @@ class CascadeStage(TransformerMixin):
 
         selected_X = X[bool_idx > 0, ::]
 
-        pred = self.clf.predict(selected_X)
+        if selected_X.shape[0]>0:
 
-        selected_X[pred==0,::] = 0.
+            pred = self.clf.predict(selected_X)
 
-        X[bool_idx > 0, ::] = selected_X
+            selected_X[pred==0,::] = 0.
 
-        return X
+            X[bool_idx > 0, ::] = selected_X
+
+            return X
+        else:
+            return X
 
     @staticmethod
     def from_clf(clf: BaseEstimator):

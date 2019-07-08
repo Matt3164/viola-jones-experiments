@@ -1,27 +1,20 @@
+from itertools import islice
 from os import makedirs
-from os.path import join, exists
 from common.config import MAX_NEGATIVE_EXAMPLES, RUN_ID, IOU_THRESHOLD
-from common.iotools.image import to_path
-from train.extract import scan_iou
+from common.iotools import images
+from train.extract import _cat_scan_iou
 from train.path_utils import negatives
+
+
+def _extract_raw_negatives(run_id: int):
+    negative_storage_path = negatives(run_id)
+    makedirs(negative_storage_path, exist_ok=True)
+    data_iter = filter(lambda x: x[0] < IOU_THRESHOLD, _cat_scan_iou())
+    images.to_path(negative_storage_path,
+                   islice(map(lambda x: x[1], data_iter), MAX_NEGATIVE_EXAMPLES)
+                   )
+
 
 if __name__ == '__main__':
 
-    negative_storage_path = negatives(RUN_ID)
-
-    makedirs(negative_storage_path, exist_ok=True)
-
-    data_iter = filter(lambda x: x[1].iou < IOU_THRESHOLD, scan_iou())
-
-    for idx, (arr, details) in enumerate(data_iter):
-
-        pos_fn = join(negative_storage_path, "ext_{0}_scale_{1}_{2:05d}.png".format(
-            details.metadata["img_idx"],
-            details.metadata["scale"],
-            details.metadata["bb_idx"]))
-
-        if not exists(pos_fn):
-            to_path(pos_fn, arr)
-
-        if idx > MAX_NEGATIVE_EXAMPLES:
-            break
+    _extract_raw_negatives(RUN_ID)

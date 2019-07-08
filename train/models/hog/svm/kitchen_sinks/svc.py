@@ -5,7 +5,6 @@ from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 
 from train.models.hog.computer import HOG
-from train.models.search.search import from_model_and_params
 from train.models.utils import LambdaRow, ProbFromClf
 
 def _simple_ks_svm(neg: int, pos: int):

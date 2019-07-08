@@ -13,7 +13,4 @@ def _downscale(img: ndarray)->ndarray:
 def from_array(img: ndarray)->ndarray:
     return _downscale(img)
 
-def from_composite(composite: ndarray)->ndarray:
-    return from_array(composite)
-
 
