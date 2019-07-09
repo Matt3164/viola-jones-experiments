@@ -7,7 +7,6 @@ paper applied to cat detection. The idea was to estimate the gap
 between the paper and a new working implementation on another use cas
 
 
-
 ## Details
 
 1. Download data to workspace (CAT_WORKSPACE)

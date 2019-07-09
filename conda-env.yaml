@@ -1,0 +1,35 @@
+name: pypurr
+channels:
+  - conda-forge
+dependencies:
+  - python>=3.6.8
+  - click
+  - matplotlib
+  - numpy
+  - pytest
+  - python-dotenv
+  - scikit-image=
+  - scipy
+  - opencv
+  - scikit-learn
+  - joblib
+  - pandas
+
+#  - python>=3.6.8
+#  - click=6.7
+#  - matplotlib=3.0.2
+#  - numpy=1.16.2
+#  - pytest=3.6.3
+#  - python-dotenv=0.9.1
+#  - scikit-image=0.14.0
+#  - scipy=1.2.1
+#  - opencv=3.4.2
+#  - scikit-learn=0.19.1
+#  - joblib==0.12.4
+#  - pandas==0.24.2
+#  - pip:
+#    - python=3.6.8
+#    - scikit-learn=0.19.1=py36hedc7406_0
+#    - joblib==0.12.4
+  #  - opencv-python==4.0.0.21
+#    - pandas==0.24.2
