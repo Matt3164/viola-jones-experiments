@@ -1,19 +1,16 @@
 from random import randint
-from numpy.core.multiarray import ndarray
 from sklearn.kernel_approximation import RBFSampler
 from sklearn.linear_model import SGDClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.tree import DecisionTreeClassifier
 from pypurr.train.models.search.search import from_model_and_params
-from pypurr.train.models.utils import LambdaRow, ProbFromClf
+from pypurr.train.models.utils import LambdaRow, ProbFromClf, flatten
 
-def _flatten(arr: ndarray)->ndarray:
-    return arr.flatten()
 
 def _simple_svm(neg: int, pos: int):
 
     sub_pipe = Pipeline([
-        ("flattener", LambdaRow(_flatten)),
+        ("flattener", LambdaRow(flatten)),
         ("kitchen_sinks", RBFSampler(n_components=250)),
         ("svm", SGDClassifier(loss="hinge", penalty="l2", alpha=0.001, max_iter=25, tol=1e-3, learning_rate="optimal")),
     ])

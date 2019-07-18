@@ -3,10 +3,10 @@ from os import makedirs
 from typing import List, Tuple, Iterator
 from numpy.core.multiarray import ndarray
 from sklearn.base import BaseEstimator
-from pypurr.common.config import MAX_NEGATIVE_EXAMPLES, IOU_THRESHOLD, BATCH_SIZE, RUN_ID
+from pypurr.common.config import MAX_NEGATIVE_EXAMPLES, IOU_THRESHOLD, BATCH_SIZE, RUN_ID, THRESHOLD
 from pypurr.common.filter import by_clf
 from pypurr.common.func import batch
-from pypurr.inference.model import cascade
+from pypurr.inference.model import cascade, aggregation
 from pypurr.train.models.utils import from_path as clf_from_path
 from pypurr.train.extract import _cat_scan_iou
 from pypurr.train.path_utils import negatives, classifier
@@ -14,13 +14,12 @@ from pypurr.train.preprocessing.window import from_array
 import numpy as np
 from pypurr.common.iotools.images import to_path as imgs_to_path
 
-
 def _filter_w_metadata(data: List[Tuple[ndarray, ndarray]],
                        classifiers: List[BaseEstimator]
                        )->Iterator[Tuple[ndarray, ndarray]]:
 
     X = np.array(list(map(lambda x: x[0], data)))
-    keptX, keptMeta, _, _ = by_clf(X, list(map(lambda x: x[1], data)), cascade.from_clfs(classifiers))
+    keptX, keptMeta, _, _ = by_clf(X, list(map(lambda x: x[1], data)), aggregation.from_clfs(classifiers, threshold=THRESHOLD))
     return zip(keptX, keptMeta)
 
 

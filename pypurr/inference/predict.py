@@ -4,12 +4,12 @@ from numpy.core.multiarray import ndarray
 import numpy as np
 from sklearn.pipeline import Pipeline
 
-from pypurr.common.config import SCALES, RUN_ID
+from pypurr.common.config import SCALES, RUN_ID, THRESHOLD
 from pypurr.common.filter import by_clf
 from pypurr.common.func.utils import _to_tuple
 from pypurr.common.imgproc import pyramid
 from pypurr.common.iotools.image import crop
-from pypurr.inference.model import cascade
+from pypurr.inference.model import aggregation
 from pypurr.inference.preprocessing import from_window
 from pypurr.train.models import utils
 from pypurr.train.path_utils import classifier
@@ -17,7 +17,7 @@ from pypurr.train.path_utils import classifier
 
 def _load_model()->Pipeline:
     classifiers = [utils.from_path(classifier(run_id)) for run_id in np.arange(0, RUN_ID)]
-    model = cascade.from_clfs(classifiers)
+    model = aggregation.from_clfs(classifiers, threshold=THRESHOLD)
     return model
 
 

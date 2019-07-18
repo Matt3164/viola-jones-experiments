@@ -9,7 +9,6 @@ from pypurr.train.models.utils import LambdaRow
 
 
 def _to_step(idxclf_tup: Tuple[int, BaseEstimator])->Tuple[str, BaseEstimator]:
-
     idx, clf = idxclf_tup
     return ("classifier_{}".format(idx), CascadeStage.from_clf(clf=clf))
 

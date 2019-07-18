@@ -29,5 +29,8 @@ def overlay_bbox_on_image(
 
     # In case of negative coordinates
     coords = np.clip(rect, a_min=0, a_max=max(img.shape))
+
+
+
     cv2.rectangle(img, (rect[0][1], rect[0][0]), (rect[0][1]+rect[1][1], rect[0][0]+rect[1][0]), color, thickness)
     return img

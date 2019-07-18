@@ -8,4 +8,4 @@ def by_clf(X: ndarray, Xmetadata: List, classifier: BaseEstimator)->Tuple[ndarra
     Xmetapos = map(lambda x: x[1], filter(lambda x: x[0], zip(preds, Xmetadata)))
     Xmetaneg = map(lambda x: x[1], filter(lambda x: ~x[0], zip(preds, Xmetadata)))
 
-    return X[preds, ::], Xmetapos, X[~preds, ::], Xmetaneg
+    return X[preds.astype(bool).flatten(), ::], Xmetapos, X[~preds.astype(bool).flatten(), ::], Xmetaneg

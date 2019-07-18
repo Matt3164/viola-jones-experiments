@@ -3,6 +3,7 @@ from typing import Tuple, List
 import numpy as np
 
 from pypurr.common.config import NOMINAL_SIZE
+from pypurr.train import preprocessing
 
 
 def from_path(fn:str)->Tuple[np.ndarray,np.ndarray]:
@@ -24,9 +25,9 @@ def from_paths(paths: List[Tuple[str, int]])->Tuple[np.ndarray, np.ndarray]:
 
     for idx, (impath, label) in enumerate(paths):
 
-        image = from_path(impath)
+        img = preprocessing.window.from_path(impath)
 
-        X[idx, ::] = image
+        X[idx, ::] = img
         Y[idx, 0] = label
 
     return X, Y

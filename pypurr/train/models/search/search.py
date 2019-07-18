@@ -3,7 +3,7 @@ from typing import Dict
 from sklearn.base import BaseEstimator
 from sklearn.model_selection import RandomizedSearchCV
 
-from pypurr.train.models.search import metrics
+from pypurr.train.models.search.metrics import metrics
 from pypurr.train.models.search.settings import N_ITER, OPTIMIZED, N_JOBS
 
 

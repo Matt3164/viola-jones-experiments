@@ -3,6 +3,7 @@ from random import shuffle
 from typing import TypeVar, Generic, List, Callable
 
 import attr
+from numpy.core._multiarray_umath import ndarray
 from numpy.core.multiarray import ndarray
 from sklearn.base import TransformerMixin, BaseEstimator
 from sklearn.externals import joblib
@@ -77,3 +78,5 @@ class LambdaRow(TransformerMixin):
         return self.fit(X).transform(X)
 
 
+def flatten(arr: ndarray)->ndarray:
+    return arr.flatten()

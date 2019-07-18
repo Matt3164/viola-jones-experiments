@@ -1,3 +1,3 @@
-N_ITER = 25
-OPTIMIZED = "f1"
+N_ITER = 20
+OPTIMIZED = "fbeta"
 N_JOBS = 4

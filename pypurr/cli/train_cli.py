@@ -23,8 +23,6 @@ def _train(run_id: int):
 
         print("--- Fold {} ----".format(tag))
 
-        ypred = clf.predict(x)
-
         for val_metric in [confusion_matrix, accuracy_score]:
 
             print("{0}  --> {1}".format(val_metric.__name__, val_metric(y, clf.predict(x))))

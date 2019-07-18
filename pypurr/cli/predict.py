@@ -13,7 +13,7 @@ from pypurr.inference.preprocessing import from_array
 from pypurr.train.datasets.object_detection import from_path as iter_from_path
 from pypurr.train.path_utils import image_df, run
 
-N_IMAGES = 5
+N_IMAGES = 25
 
 def _display_bbs(img: ndarray, bbs: List[Tuple[Point, Size2D]])->ndarray:
     _img = img.copy()
@@ -36,7 +36,7 @@ if __name__ == '__main__':
     true_data = map(lambda x: (x[0], _to_rect(x[1])), gt_data)
     true_data = map(lambda x: overlay_bbox_on_image(x[0], x[1], color=(255,0,0)), true_data)
 
-    pred_data = map(lambda x: (x[0], from_img(from_array(x[0]))), to_pred_data)
+    pred_data = map(lambda x: (from_array(x[0]), from_img(from_array(x[0]))), to_pred_data)
 
     pred_data = map(lambda x: _display_bbs(x[0], x[1]), pred_data)
 
