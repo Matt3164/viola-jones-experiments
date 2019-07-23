@@ -31,21 +31,14 @@ between the paper and a new working implementation on another use cas
 - [X] Python packaging
 - [X] create config management ( dotenv and ini file)
 - [ ] add debug tools
-- [ ] Ergonomy of cascade filter : replace the cascade by an ensemble where at least 80% of the classifiers should return true 
+- [X] Ergonomy of cascade filter : replace the cascade by an ensemble where at least 80% of the classifiers should return true 
 
 ## Machine learning related
 
-- [ ] SURF and LBP feature integration
-- [ ] Use other classifier during clf search
-- [ ] Add feature search in RandomSearch
-- [ ] Image decomposition: compute patch representation (SparsePCA or DictLearning) and use region pooling
 - [ ] Use hierarchical clustering
 - [ ] Use Outlier detection to remove unwanted samples (filter some negative examples)
-- [ ] Bag of features : Learn classifier on small patches and apply it on large image and pool then SVM
 - [ ] Logging + Log visu + Log perf --> check mlflow?
 - [ ] Add data augmentation
-- [X] Learn a random forest or extra trees
-- [ ] Train on subsample and estimate threshold on bigger set
 
 3 objectifs:
 - Train a correct classifier
