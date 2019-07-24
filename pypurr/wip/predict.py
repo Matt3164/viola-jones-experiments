@@ -3,22 +3,20 @@ from os import makedirs
 from os.path import join
 from typing import Tuple, List
 
-import cv2
 import numpy as np
-from matplotlib.pyplot import show, imshow, title
 from numpy.core.multiarray import ndarray
 
+import pypurr.common.helpers.model
 from pypurr.common.config import RUN_ID, SCALES
-from pypurr.common.func.utils import _to_tuple
-from pypurr.common.imgproc import pyramid
-from pypurr.common.iotools import image
-from pypurr.common.iotools.image import from_path, crop
-from pypurr.common.viz import overlay_bbox_on_image
+from pypurr.common.helpers.functionnal.utils import _to_tuple
+from pypurr.common.scanner import pyramid
+from pypurr.deprecated.iotools import image
+from pypurr.deprecated.iotools import from_path, crop
+from pypurr.common.viz import draw_bbox_on_image
 from pypurr.inference.model import aggregation
-from pypurr.inference.predict import Point, Size2D
+from pypurr.train.helpers.dataset.objdet import Point, Size2D
 from pypurr.inference.preprocessing import from_array, from_window
 from pypurr.train.datasets.object_detection import from_path as iter_from_path
-from pypurr.train.models import utils
 from pypurr.train.path_utils import image_df, classifier, run
 
 N_IMAGES = 5
@@ -27,7 +25,7 @@ N_IMAGES = 5
 def _display_bbs(img: ndarray, bbs: List[Tuple[Point, Size2D]]) -> ndarray:
     _img = img.copy()
     for bb in bbs:
-        _img = overlay_bbox_on_image(_img, bb, color=(0, 255, 0))
+        _img = draw_bbox_on_image(_img, bb, color=(0, 255, 0))
     return _img
 
 
@@ -44,9 +42,9 @@ if __name__ == '__main__':
     gt_data, to_pred_data = tee(data_iter, 2)
 
     true_data = map(lambda x: (x[0], _to_rect(x[1])), gt_data)
-    true_data = map(lambda x: overlay_bbox_on_image(x[0], x[1], color=(255, 0, 0)), true_data)
+    true_data = map(lambda x: draw_bbox_on_image(x[0], x[1], color=(255, 0, 0)), true_data)
 
-    classifiers = [utils.from_path(classifier(run_id)) for run_id in np.arange(0, RUN_ID)]
+    classifiers = [pypurr.common.helpers.model.from_path(classifier(run_id)) for run_id in np.arange(0, RUN_ID)]
 
     # for (im, path) in to_pred_data:
 

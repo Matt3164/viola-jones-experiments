@@ -3,8 +3,8 @@ from sklearn.model_selection import train_test_split
 from pypurr.common.config import RUN_ID, RANDOM_SEARCH
 from pypurr.train.classifier import default_load
 from pypurr.train.models.search.search import from_model_and_params
-from pypurr.train.models.utils import to_path
-from pypurr.common.iotools.dataset import from_path
+from pypurr.common.helpers.model import to_path
+from pypurr.deprecated.iotools import from_path
 from pypurr.train.path_utils import dataset, classifier
 
 

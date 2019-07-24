@@ -6,13 +6,13 @@ from sklearn.base import BaseEstimator
 from pypurr.common.config import MAX_NEGATIVE_EXAMPLES, IOU_THRESHOLD, BATCH_SIZE, RUN_ID, THRESHOLD
 from pypurr.common.filter import by_clf
 from pypurr.common.func import batch
-from pypurr.inference.model import cascade, aggregation
-from pypurr.train.models.utils import from_path as clf_from_path
+from pypurr.inference.model import aggregation
+from pypurr.common.helpers.model import from_path as clf_from_path
 from pypurr.train.extract import _cat_scan_iou
 from pypurr.train.path_utils import negatives, classifier
-from pypurr.train.preprocessing.window import from_array
+from pypurr.common.preprocessing.window import from_array
 import numpy as np
-from pypurr.common.iotools.images import to_path as imgs_to_path
+from pypurr.deprecated.iotools.images import to_path as imgs_to_path
 
 def _filter_w_metadata(data: List[Tuple[ndarray, ndarray]],
                        classifiers: List[BaseEstimator]

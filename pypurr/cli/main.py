@@ -6,7 +6,7 @@ from pypurr.cli.extract_negatives import _extract_negatives
 from pypurr.cli.extract_positives import _extract_positives
 from pypurr.cli.extract_raw_negatives import _extract_raw_negatives
 from pypurr.cli.train_cli import _train
-from pypurr.train.preparation import _prepare
+from pypurr.tools.preparation.preparation import _prepare
 
 
 @click.group()

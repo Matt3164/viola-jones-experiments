@@ -1,8 +1,8 @@
 from os import makedirs
 
 from pypurr.common.config import RUN_ID, POSITIVE_PATH
-from pypurr.common.iotools.dataset import to_path, from_paths
-from pypurr.common.iotools.labeled_path import from_folders
+from pypurr.deprecated.iotools import to_path, from_paths
+from pypurr.deprecated.iotools.labeled_path import from_folders
 from pypurr.train.path_utils import run, dataset, negatives
 
 def _build_dataset(run_id: int)->None:

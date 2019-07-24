@@ -6,7 +6,7 @@ from sklearn.base import BaseEstimator
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
-from pypurr.common.iotools.dataset import from_path
+from pypurr.deprecated.iotools import from_path
 from pypurr.train.path_utils import dataset
 from skimage.util import view_as_windows
 import numpy as np

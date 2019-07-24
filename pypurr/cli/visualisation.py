@@ -1,6 +1,6 @@
 from matplotlib.pyplot import subplot, imshow, show
 
-from pypurr.common.iotools.image import from_path
+from pypurr.deprecated.iotools import from_path
 from pypurr.common.viz import overlay_bbox_on_img
 from pypurr.train.preprocessing.window import from_path
 from pypurr.train.path_utils import image_df

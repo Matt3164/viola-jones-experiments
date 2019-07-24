@@ -5,10 +5,11 @@ from typing import Tuple, List
 from numpy.core.multiarray import ndarray
 
 from pypurr.common.config import RUN_ID
-from pypurr.common.iotools.image import from_path
-from pypurr.common.iotools.images import to_path
-from pypurr.common.viz import overlay_bbox_on_image
-from pypurr.inference.predict import from_img, Point, Size2D
+from pypurr.deprecated.iotools import from_path
+from pypurr.deprecated.iotools.images import to_path
+from pypurr.common.viz import draw_bbox_on_image
+from pypurr.inference.predict import from_img
+from pypurr.train.helpers.dataset.objdet import Point, Size2D
 from pypurr.inference.preprocessing import from_array
 from pypurr.train.datasets.object_detection import from_path as iter_from_path
 from pypurr.train.path_utils import image_df, run
@@ -18,7 +19,7 @@ N_IMAGES = 25
 def _display_bbs(img: ndarray, bbs: List[Tuple[Point, Size2D]])->ndarray:
     _img = img.copy()
     for bb in bbs:
-        _img = overlay_bbox_on_image(_img, bb, color=(0, 255, 0))
+        _img = draw_bbox_on_image(_img, bb, color=(0, 255, 0))
     return _img
 
 def _to_rect(flat: Tuple[int,int,int,int])->Tuple[Point, Size2D]:
@@ -34,7 +35,7 @@ if __name__ == '__main__':
     gt_data, to_pred_data = tee(data_iter, 2)
 
     true_data = map(lambda x: (x[0], _to_rect(x[1])), gt_data)
-    true_data = map(lambda x: overlay_bbox_on_image(x[0], x[1], color=(255,0,0)), true_data)
+    true_data = map(lambda x: draw_bbox_on_image(x[0], x[1], color=(255, 0, 0)), true_data)
 
     pred_data = map(lambda x: (from_array(x[0]), from_img(from_array(x[0]))), to_pred_data)
 

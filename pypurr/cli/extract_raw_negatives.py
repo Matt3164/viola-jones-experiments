@@ -2,7 +2,7 @@ from itertools import islice
 from os import makedirs
 
 from pypurr.common.config import MAX_NEGATIVE_EXAMPLES, RUN_ID, IOU_THRESHOLD
-from pypurr.common.iotools import images
+from pypurr.deprecated.iotools import images
 from pypurr.train.extract import _cat_scan_iou
 from pypurr.train.path_utils import negatives
 
