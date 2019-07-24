@@ -12,8 +12,8 @@ from pypurr.train.helpers.dataset.objdet import Rect, Size2D
 
 def _rect_to_bbox(rect: Rect)->BoundingBox:
     return BoundingBox(
-        x1=rect[0][1],
-        y1=rect[0][0],
+        x1=max(rect[0][1],0),
+        y1=max(rect[0][0],0),
         x2=rect[0][1]+rect[1][1],
         y2=rect[0][0]+rect[1][0],
     )
