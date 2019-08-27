@@ -12,7 +12,7 @@ if __name__ == '__main__':
 
     seq = imgaug.augmenters.Sequential(
         [
-            imgaug.augmenters.Resize((0.5,2.)),
+            imgaug.augmenters.Resize((0.5, 2.)),
             imgaug.augmenters.Fliplr(),
             imgaug.augmenters.Flipud(),
             imgaug.augmenters.CropToFixedSize(width=128, height=128)
