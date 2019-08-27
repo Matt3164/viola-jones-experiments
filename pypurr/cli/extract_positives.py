@@ -16,6 +16,7 @@ def _extract_positives():
                             steps=list(map(lambda x: int(0.25*x), SCALES))
                         )
                        )
+
     dataset.images.to_path(
         POSITIVE_PATH,
         islice(map(lambda x: x[1], data_iter), 0, MAX_POSITIVE_EXAMPLES)

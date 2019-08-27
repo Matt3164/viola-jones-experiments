@@ -3,13 +3,11 @@ from os import makedirs
 from typing import List, Tuple, Iterator
 from numpy.core.multiarray import ndarray
 from sklearn.base import BaseEstimator
-from pypurr.common.config import MAX_NEGATIVE_EXAMPLES, IOU_THRESHOLD, BATCH_SIZE, RUN_ID, THRESHOLD
-from pypurr.common.filter import by_clf
-from pypurr.common.func import batch
-from pypurr.inference.model import aggregation
+from pypurr.common.config import MAX_NEGATIVE_EXAMPLES, IOU_THRESHOLD, BATCH_SIZE, RUN_ID, THRESHOLD, SCALES
 from pypurr.common.helpers.model import from_path as clf_from_path
-from pypurr.train.extract import _cat_scan_iou
-from pypurr.train.path_utils import negatives, classifier
+from pypurr.train import scan_iou
+from pypurr.train.helpers import dataset
+from pypurr.train.path_utils import negatives, classifier, image_df
 from pypurr.common.preprocessing.window import from_array
 import numpy as np
 from pypurr.deprecated.iotools.images import to_path as imgs_to_path
@@ -27,7 +25,11 @@ def _extract_negatives(run_id: int):
     negative_storage_path = negatives(run_id)
     classifiers = [clf_from_path(classifier(_run_id)) for _run_id in np.arange(0, run_id)]
     makedirs(negative_storage_path, exist_ok=True)
-    data_iter = filter(lambda x: x[0] < IOU_THRESHOLD, _cat_scan_iou())
+
+    data_iter = filter(lambda x: x[0] < IOU_THRESHOLD, scan_iou.from_dataset(
+                            dataset.objdet.from_path(image_df()), sizes=SCALES,
+                            steps=list(map(lambda x: int(0.25*x), SCALES)) ))
+
     data_iter = map(lambda x: x[1], data_iter)
     data_to_dump, data_iter = tee(data_iter, 2)
     data_iter = map(lambda x: from_array(x), data_iter)
