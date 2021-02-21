@@ -1,21 +1,21 @@
 from random import randint
 
 from skimage.transform import integral_image
+from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
-from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.tree import DecisionTreeClassifier
 
 from pypurr.train.helpers.model import ProbFromClf, LambdaRow, flatten
 
 
 def build(neg: int, pos: int):
-
     sub_pipe = Pipeline([
         ("integral_image", LambdaRow(integral_image)),
         ("flattener", LambdaRow(flatten)),
         ("scaler", StandardScaler()),
-        ("extra_trees", ExtraTreesClassifier(max_depth=None, n_estimators=50, criterion="entropy", max_features=16, bootstrap=True)),
+        ("extra_trees",
+         ExtraTreesClassifier(max_depth=None, n_estimators=50, criterion="entropy", max_features=16, bootstrap=True)),
     ])
 
     ALPHA = 0.01
@@ -24,7 +24,8 @@ def build(neg: int, pos: int):
         ("xtrapb",
          ProbFromClf(clf=sub_pipe)),
         ("tree",
-         DecisionTreeClassifier(criterion="entropy", max_depth=None, class_weight={0: ALPHA / neg, 1: (1.-ALPHA) / pos}))
+         DecisionTreeClassifier(criterion="entropy", max_depth=None,
+                                class_weight={0: ALPHA / neg, 1: (1. - ALPHA) / pos}))
     ])
 
     param_dist = {

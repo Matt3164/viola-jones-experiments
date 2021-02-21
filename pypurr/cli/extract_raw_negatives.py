@@ -3,8 +3,8 @@ from os import makedirs
 
 from pypurr.common.config import MAX_NEGATIVE_EXAMPLES, RUN_ID, IOU_THRESHOLD
 from pypurr.deprecated.iotools import images
-from pypurr.train.extract import _cat_scan_iou
 from pypurr.train.path_utils import negatives
+
 
 def _extract_raw_negatives(run_id: int):
     negative_storage_path = negatives(run_id)

@@ -11,8 +11,7 @@ from pypurr.common.config import DATA_PATH
 from pypurr.train.path_utils import image_df
 
 
-def _prepare()->None:
-
+def _prepare() -> None:
     data_path = DATA_PATH
 
     image_files = chain.from_iterable(
@@ -51,7 +50,7 @@ def _flatten(s: Tuple[str, Tuple[int, int, int, int]]) -> Tuple[str, int, int, i
     return (im, bbox[0], bbox[1], bbox[2], bbox[3])
 
 
-def get()->None:
+def get() -> None:
     """
     Should download dataset files
 
